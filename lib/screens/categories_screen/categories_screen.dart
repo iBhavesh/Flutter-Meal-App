@@ -4,6 +4,8 @@ import 'components/category_item.dart';
 import '../../data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
+
+  static const String routeName = "/";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
