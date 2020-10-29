@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './routes.dart';
+import './screens/route_not_found_screen/route_not_found_screen.dart';
 
+import './routes.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
             )),
       ),
       routes: routes,
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (_) => RouteNotFoundScreen());
+      },
     );
   }
 }
