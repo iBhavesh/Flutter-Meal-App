@@ -8,6 +8,7 @@ class MealDetailScreen extends StatelessWidget {
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
+      height: 25,
       margin: EdgeInsets.symmetric(
         vertical: 10,
       ),
@@ -25,9 +26,6 @@ class MealDetailScreen extends StatelessWidget {
         DUMMY_MEALS.firstWhere((element) => element.id == mealId);
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     const double imageHeight = 250;
-
-    print(mediaQuery.size.width);
-    print(mediaQuery.size.height);
 
     final appBar = AppBar(
       title: Text('${selectedMeal.title}'),
@@ -73,7 +71,7 @@ class MealDetailScreen extends StatelessWidget {
             child: ListView.builder(
               itemBuilder: (_, index) => ListTile(
                 leading: CircleAvatar(
-                  child: Text('#${index + 1}'),
+                  child: Text('# ${index + 1}'),
                 ),
                 title: Text(selectedMeal.steps[index]),
               ),

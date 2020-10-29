@@ -6,7 +6,7 @@ class SectionContainer extends StatelessWidget {
   final Widget child;
   final double imageHeight;
   SectionContainer(
-      {this.mediaQuery, this.appBarSize, this.child, this.imageHeight});
+      {this.mediaQuery, this.appBarSize, this.child, this.imageHeight,});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,12 +17,12 @@ class SectionContainer extends StatelessWidget {
       ),
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
-      height: (mediaQuery.size.height-
+      height: (mediaQuery.size.height -
               imageHeight -
-              (Theme.of(context).textTheme.headline6.fontSize * 2) -
-              40 -
-              mediaQuery.padding.top - kToolbarHeight) *
-          0.4,
+              ((25 + 40) * 2) -
+              mediaQuery.padding.top -
+              kToolbarHeight) *
+          0.5,
       width: mediaQuery.size.width * 0.8,
       child: child,
     );
