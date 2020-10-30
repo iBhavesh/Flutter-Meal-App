@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class RouteNotFoundScreen extends StatelessWidget {
   void backToHome(BuildContext context) {
-    Navigator.of(context).popUntil((route) => route.settings.name == "/");
+    if(Navigator.of(context).canPop())
+      Navigator.of(context).popUntil((route) => route.settings.name == "/");
+    else
+      Navigator.of(context).pushReplacementNamed("/");
   }
 
   @override
