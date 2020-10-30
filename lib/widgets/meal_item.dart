@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/meal.dart';
-import '../../meal_detail_screen/meal_detail_screen.dart';
+import '../models/meal.dart';
+import '../screens/meal_detail_screen/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
   final String title, imageUrl, id;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
-  final Function removeItem;
 
   MealItem({
     @required this.id,
-    @required this.removeItem,
     @required this.complexity,
     @required this.duration,
     @required this.imageUrl,
@@ -57,12 +55,7 @@ class MealItem extends StatelessWidget {
         .pushNamed(
       MealDetailScreen.routeName,
       arguments: id,
-    )
-        .then((value) {
-      if (value != null) {
-        removeItem(value);
-      }
-    });
+    );
   }
 
   @override

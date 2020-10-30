@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/meal.dart';
-import './components/meal_item.dart';
+import '../../widgets/meal_item.dart';
 
 class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
@@ -31,12 +31,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
     }
   }
 
-  void _removeMeal(String mealId) {
-    setState(() {
-      _displayedMeals.removeWhere((element) => element.id == mealId);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +42,6 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
       body: ListView.builder(
         itemBuilder: (_, index) {
           return MealItem(
-            removeItem: _removeMeal,
             id: _displayedMeals[index].id,
             title: _displayedMeals[index].title,
             affordability: _displayedMeals[index].affordability,
