@@ -1,10 +1,50 @@
 import 'package:flutter/material.dart';
-import './screens/route_not_found_screen/route_not_found_screen.dart';
 
-import './routes.dart';
+// import './screens/categories_screen/categories_screen.dart';
+import './screens/route_not_found_screen/route_not_found_screen.dart';
+import './screens/category_meals_screen/category_meals_screen.dart';
+import './screens/meal_detail_screen/meal_detail_screen.dart';
+import './screens/tabs_screen/tabs_screen.dart';
+import 'screens/filters_screen/filters_screen.dart';
+
+import './models/filters.dart';
+import './models/meal.dart';
+import './data/dummy_data.dart';
+
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _filters = Filters();
+
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _saveFilters(Filters filters, BuildContext context) {
+    setState(() {
+      _filters = filters;
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (_filters.isGlutenFree && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters.isLactoseFree && !meal.isLactoseFree) {
+          return false;
+        }
+        if (_filters.isVegan && !meal.isVegan) {
+          return false;
+        }
+        if (_filters.isVegetarian && !meal.isVegetarian) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+    Navigator.of(context).pushReplacementNamed('/');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +67,16 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
             )),
       ),
-      routes: routes,
+      routes: {
+        '/': (BuildContext context) => TabsScreen(),
+        // CategoriesScreen.routeName : (BuildContext context) => CategoriesScreen(),
+        CategoryMealsScreen.routeName: (BuildContext context) =>
+            CategoryMealsScreen(_availableMeals),
+        MealDetailScreen.routeName: (BuildContext context) =>
+            MealDetailScreen(),
+        FiltersScreen.routeName: (BuildContext context) =>
+            FiltersScreen(_saveFilters, _filters),
+      },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (_) => RouteNotFoundScreen());
       },
